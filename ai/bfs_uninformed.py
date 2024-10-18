@@ -11,7 +11,7 @@ class Graph:
 
         self.graph[u].append(v)
 
-    def BFS(self, source):
+    def BFS(self, source, target):
         visited = [False] * (max(self.graph) + 1)
 
         queue = []
@@ -20,12 +20,17 @@ class Graph:
         while queue:
 
             s = queue.pop(0)
+            if s == target:
+                print(s)
+                print("Found ", target)
+                break
             print(s, end=" -> ")
 
             for i in self.graph[s]:
                 if not visited[i]:
                     queue.append(i)
                     visited[i] = True
+        print()
 
 
 g = Graph()
@@ -38,4 +43,4 @@ g.addEdge(3, 3)
 
 
 print("Starting BFS")
-g.BFS(0)
+g.BFS(0, 3)
