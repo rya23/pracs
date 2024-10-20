@@ -1,51 +1,31 @@
-import random
+def pagerank(links, damp=0.85, iteration=100):
+
+    N = len(links)
+
+    ranks = {page: 1 / N for page in links}
+
+    for i in range(iteration):
+        new_rank = {}
+        for page in links:
+            rank_sum = sum(
+                ranks[ref_page] / len(links[ref_page])
+                for ref_page in links
+                if page in links[ref_page]
+            )
+            # Alternate Rank_sum
+            # for ref_page in links:
+            #     if page in links[ref_page]:
+            #         rank_sum += ranks[ref_page] / len(links[ref_page])
+            new_rank[page] = (1 - damp) / (N + damp * rank_sum)
+        ranks = new_rank
+
+    return ranks
 
 
-def initcentroids(data, k):
-    return random.sample(data, k)
+links = {"A": ["B", "C"], "B": ["C"], "C": ["A"], "D": ["C"]}
 
 
-def assign_clusters(data, centroids):
-
-    clusters = {}
-
-    for x in data:
-        closest_centroid = min(centroids, key=lambda c: abs(x - c))
-        if closest_centroid not in clusters:
-            clusters[closest_centroid] = []
-        clusters[closest_centroid].append(x)
-    return clusters
-
-
-def update_centroids(clusters):
-    new_centroids = []
-    for _, point in clusters.items():
-        new_centroids.append(sum(point) / len(point))
-    return new_centroids
-
-
-def kmeans(data, k, max_iters=100):
-
-    centroids = initcentroids(data, k)
-
-    for i in range(max_iters):
-
-        clusters = assign_clusters(data, centroids)
-
-        new_centroids = update_centroids(clusters)
-
-        if centroids == new_centroids:
-            print(f"Converged at {i+1}th iteration")
-            break
-        centroids = new_centroids
-
-    return centroids, clusters
-
-
-data = [1, 2, 3, 10, 11, 12, 20, 21, 22]
-k = 3
-
-
-centroids, clusters = kmeans(data, k)
-print("Final Centroids:", centroids)
-print("Clusters:", clusters)
+ranks = pagerank(links)
+print("PageRank Scores:")
+for page, rank in ranks.items():
+    print(f"Page {page}: {rank:.4f}")
