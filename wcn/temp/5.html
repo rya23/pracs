@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Basics</title>
+</head>
+<body>
+
+    <h1>JavaScript Basics</h1>
+    <button onclick="greetUser()">Click Me</button>
+    <p id="message"></p>
+
+    <script>
+        // Variables
+        let name = "Alice";
+        let age = 25;
+
+        // Operators
+        let incrementedAge = age + 1; // Increment age by 1
+        
+        // Functions
+        function greetUser() {
+           
+            console.log(age)
+            console.log(incrementedAge)
+            
+             // Condition
+            if (age >= 18) {
+                document.getElementById("message").textContent = "Hello " + name + "! You are an adult.";
+            } else {
+                document.getElementById("message").textContent = "Hello " + name + "! You are a minor.";
+            }
+
+            // Loop
+            console.log("Counting to 5:");
+            for (let i = 1; i <= 5; i++) {
+                console.log(i);
+            }
+        }
+
+        // Events (button click triggers greetUser function)
+        // The function is called in the HTML button element using onclick="greetUser()"
+    </script>
+    
+</body>
+</html>

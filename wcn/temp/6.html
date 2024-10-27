@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Example: Classes, Objects, and More</title>
+</head>
+<body>
+
+    <h1>JavaScript Example</h1>
+    <button onclick="runExample()">Run Example</button>
+    <p id="output"></p>
+    <p id="output1"></p>
+    <p id="output2"></p>
+    <p id="output3"></p>
+
+    <script>
+        // Class and Object
+        class Person {
+            constructor(name, birthYear) {
+                this.name = name;
+                this.birthYear = birthYear;
+            }
+
+            // Method to calculate age
+            calculateAge() {
+                const currentYear = new Date().getFullYear();
+                return currentYear - this.birthYear;
+            }
+        }
+
+        // Array, String, and Date
+        function runExample() {
+            // Array and String manipulation
+            const fruits = ["apple", "banana", "cherry"];
+            const fruitList = fruits.join(", ");
+            document.getElementById("output").textContent = "Fruits: " + fruitList;
+
+            // Object creation
+            const person = new Person("Alice", 1996);
+            document.getElementById("output1").textContent = 
+                "\n" + person.name + " is " + person.calculateAge() + " years old.";
+
+            // Date manipulation
+            const today = new Date();
+            document.getElementById("output2").textContent = 
+                "\nToday's date is: " + today.toDateString();
+
+            // Validation
+            const age = person.calculateAge();
+            if (isNaN(age) || age < 0) {
+                throw new Error("Invalid age calculated.");
+            }
+
+            // Error Handling
+            try {
+                validateAge(age);
+            } catch (error) {
+                document.getElementById("output3").textContent = "\nError: " + error.message;
+            }
+        }
+
+        // Function for age validation
+        function validateAge(age) {
+            if (age < 18) {
+                throw new Error("Age must be 18 or above.");
+            } else {
+                document.getElementById("output3").textContent += "\nAge is valid.";
+            }
+        }
+    </script>
+</body>
+</html>
